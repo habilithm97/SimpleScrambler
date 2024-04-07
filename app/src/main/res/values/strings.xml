@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CubeScrambler2404</string>
+    <string name="three">3x3x3</string>
+    <string name="scramble">Scramble</string>
 </resources>
