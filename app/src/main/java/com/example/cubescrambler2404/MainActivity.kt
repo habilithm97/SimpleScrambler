@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
             // 2. 마지막으로 사용된 면과 같은 축이고 두 번째 마지막으로 사용된 면이 같으면 다시
             } while (face == lastFace || (face == secondLastFace && getAxis(face) == getAxis(lastFace)))
 
-            val modifier = rotation[Random.nextInt(rotation.size)]
-            scramble.add(face + modifier)
+            val rotation = rotation[Random.nextInt(rotation.size)]
+            scramble.add(face + rotation)
 
             secondLastFace = lastFace
             lastFace = face
