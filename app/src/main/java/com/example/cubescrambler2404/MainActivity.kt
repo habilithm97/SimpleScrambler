@@ -10,7 +10,7 @@ import com.example.cubescrambler2404.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val faces = listOf("U", "D", "L", "R", "F", "B")
+    private val faces = listOf("U", "R", "F", "B", "L", "B")
     private val rotation = listOf("", "'", "2")
     private var moves = 20
 
@@ -47,10 +47,15 @@ class MainActivity : AppCompatActivity() {
         var lastFace = ""
         var secondLastFace = ""
 
+        val facesToUse = if(moves == 9) {
+            faces.subList(0, 3)
+        } else {
+            faces
+        }
         repeat(moves) {
             var face: String
             do {
-                face = faces.random()
+                face = facesToUse.random()
             // 1. 마지막으로 사용된 면과 같으면 다시
             // 2. 마지막으로 사용된 면과 같은 축이고 두 번째 마지막으로 사용된 면이 같으면 다시
             } while (face == lastFace || (face == secondLastFace && getAxis(face) == getAxis(lastFace)))
@@ -85,11 +90,17 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.item1 -> {
                 moves = 20
-                binding.tvCube.text = getString(R.string.three)
+                binding.apply {
+                    tvCube.text = getString(R.string.three)
+                    tvScramble.text = createScramble()
+                }
             }
             R.id.item2 -> {
                 moves = 9
-                binding.tvCube.text = getString(R.string.two)
+                binding.apply {
+                    tvCube.text = getString(R.string.two)
+                    tvScramble.text = createScramble()
+                }
             }
         }
         return true
