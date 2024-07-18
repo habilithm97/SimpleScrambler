@@ -2,14 +2,17 @@ package com.example.cubescrambler2404
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
+import androidx.appcompat.widget.PopupMenu
 import com.example.cubescrambler2404.databinding.ActivityMainBinding
-import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val faces = listOf("U", "D", "L", "R", "F", "B")
     private val rotation = listOf("", "'", "2")
+    private var moves = 20
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,30 +22,40 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        binding.tvScramble.setOnTouchListener { view, motionEvent ->
-            when(motionEvent.action) {
-                MotionEvent.ACTION_UP -> {
-                    binding.tvScramble.text = createScramble()
+        binding.apply {
+            tvScramble.setOnTouchListener { _, motionEvent ->
+                when(motionEvent.action) {
+                    MotionEvent.ACTION_UP -> {
+                        binding.tvScramble.text = createScramble()
+                    }
                 }
+                true
             }
-            true
+            tvCube.setOnTouchListener { view, motionEvent ->
+                when(motionEvent.action) {
+                    MotionEvent.ACTION_UP -> {
+                        showPopupMenu(view)
+                    }
+                }
+                true
+            }
         }
     }
 
-    private fun createScramble(moves: Int = 20) : String {
+    private fun createScramble() : String {
         val scramble = mutableListOf<String>()
         var lastFace = ""
         var secondLastFace = ""
 
-        for (i in 0 until moves) {
+        repeat(moves) {
             var face: String
             do {
-                face = faces[Random.nextInt(faces.size)]
+                face = faces.random()
             // 1. 마지막으로 사용된 면과 같으면 다시
             // 2. 마지막으로 사용된 면과 같은 축이고 두 번째 마지막으로 사용된 면이 같으면 다시
             } while (face == lastFace || (face == secondLastFace && getAxis(face) == getAxis(lastFace)))
 
-            val rotation = rotation[Random.nextInt(rotation.size)]
+            val rotation = rotation.random()
             scramble.add(face + rotation)
 
             secondLastFace = lastFace
@@ -58,5 +71,27 @@ class MainActivity : AppCompatActivity() {
             "F", "B" -> "FB"
             else -> ""
         }
+    }
+
+    private fun showPopupMenu(view: View) {
+        PopupMenu(this@MainActivity, view).apply {
+            menuInflater.inflate(R.menu.popup, menu)
+            setOnMenuItemClickListener { menuItem -> onMenuItemClick(menuItem) }
+            show()
+        }
+    }
+
+    private fun onMenuItemClick(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item1 -> {
+                moves = 20
+                binding.tvCube.text = getString(R.string.three)
+            }
+            R.id.item2 -> {
+                moves = 9
+                binding.tvCube.text = getString(R.string.two)
+            }
+        }
+        return true
     }
 }
