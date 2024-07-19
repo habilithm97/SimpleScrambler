@@ -15,8 +15,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        supportFragmentManager.beginTransaction()
-            .add(binding.container.id, MainFragment())
-            .commit()
+        binding.viewPager.adapter = ViewPagerAdapter(this@MainActivity)
     }
 }
