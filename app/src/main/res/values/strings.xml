@@ -3,6 +3,6 @@
     <string name="three">3x3x3</string>
     <string name="scramble">Scramble</string>
     <string name="two">2x2x2</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="last_scrambles">Last Scrambles</string>
+    <string name="date">2407231221</string>
 </resources>

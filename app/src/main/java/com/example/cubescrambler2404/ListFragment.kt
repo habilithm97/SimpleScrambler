@@ -5,55 +5,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cubescrambler2404.databinding.FragmentListBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+    ): View {
+        binding = FragmentListBinding.inflate(inflater, container, false)
+        init()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun init() {
+        val itemList = listOf(
+            Scramble("D' F2 D R2 B2 R2 D' U' L2 F2 R B' F' U2 R2 F D' L R2 U'", "2407231240"),
+            Scramble("R2 B' R' B2 D2 B' D2 R2 D2 B2 F' U2 R2 B' L' U L' R' D' B D2", "2407231304"),
+            Scramble("R B2 R' D2 L B2 R2 F2 R' D2 L2 F' R' U2 L' B' D' U L' B R", "2407231242"),
+            Scramble("L D B' U2 R2 B' F' U2 F L2 D2 R2 F D' R B' F' U L' R'", "2407231243")
+        )
+
+        binding.apply {
+            rv.layoutManager = LinearLayoutManager(context)
+            rv.adapter = RvAdapter(itemList)
+        }
     }
 }

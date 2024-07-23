@@ -15,6 +15,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        binding.viewPager.adapter = ViewPagerAdapter(this@MainActivity)
+        binding.viewPager.adapter = VpAdapter(this@MainActivity)
     }
 }
