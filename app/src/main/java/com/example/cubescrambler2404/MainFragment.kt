@@ -30,7 +30,8 @@ class MainFragment : Fragment() {
             tvScramble.setOnTouchListener { _, motionEvent ->
                 when(motionEvent.action) {
                     MotionEvent.ACTION_UP -> {
-                        binding.tvScramble.text = createScramble()
+                        val scramble = createScramble()
+                        tvScramble.text = scramble
                     }
                 }
                 true
@@ -47,7 +48,7 @@ class MainFragment : Fragment() {
     }
 
     private fun createScramble() : String {
-        val scramble = mutableListOf<String>()
+        val scramble = StringBuilder()
         var lastFace = ""
         var secondLastFace = ""
 
@@ -65,12 +66,15 @@ class MainFragment : Fragment() {
             } while (face == lastFace || (face == secondLastFace && getAxis(face) == getAxis(lastFace)))
 
             val rotation = rotation.random()
-            scramble.add(face + rotation)
+            if(scramble.isNotEmpty()) {
+                scramble.append(" ")
+            }
+            scramble.append(face).append(rotation)
 
             secondLastFace = lastFace
             lastFace = face
         }
-        return scramble.joinToString(" ")
+        return scramble.toString()
     }
     // 각 면에 대한 축을 반환
     private fun getAxis(face: String): String {

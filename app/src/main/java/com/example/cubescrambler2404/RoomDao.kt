@@ -12,5 +12,5 @@ interface RoomDao {
     suspend fun addScramble(scramble: Scramble)
 
     @Query("select * from scramble_tb order by id")
-    fun getAll(): Flow<List<Scramble>> // 비동기 데이터 스트림 Flow(DB의 변경 사항을 실시간으로 스트리밍)
+    fun getAll(): Flow<List<Scramble>>
 }
