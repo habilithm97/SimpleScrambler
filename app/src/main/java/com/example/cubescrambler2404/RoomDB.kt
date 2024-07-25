@@ -10,7 +10,7 @@ abstract class RoomDB : RoomDatabase() {
     abstract fun roomDao(): RoomDao
 
     companion object { // 싱글톤
-        @Volatile // 싱글톤 보장(해당 데이터가 메인 메모리에만 존재하도록 명시)
+        @Volatile // 싱글톤 보장
         private var INSTANCE: RoomDB? = null
         private const val DB_NAME = "scramble_db"
 
