@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import com.example.cubescrambler2404.databinding.FragmentMainBinding
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -97,9 +99,15 @@ class MainFragment : Fragment() {
 
     private fun saveScramble() {
         val scrambled = scramble
-        val date = "2407251513"
+        val date = getCurrentDateTime()
         val scrambleData = Scramble(scrambled, date)
         viewModel.addScramble(scrambleData)
+    }
+
+    private fun getCurrentDateTime(): String {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyMMddHHmm")
+        return current.format(formatter)
     }
 
     private fun showPopupMenu(view: View) {
