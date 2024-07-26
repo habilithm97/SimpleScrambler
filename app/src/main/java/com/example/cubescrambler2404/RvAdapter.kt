@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cubescrambler2404.databinding.ItemRvBinding
 
-class RvAdapter(private val itemList: List<Scramble>) : RecyclerView.Adapter<RvAdapter.MyViewHolder>() {
+class RvAdapter : RecyclerView.Adapter<RvAdapter.MyViewHolder>() {
+    private var itemList: List<Scramble> = emptyList()
 
     inner class MyViewHolder(private val binding: ItemRvBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(scramble: Scramble) {
@@ -27,5 +28,10 @@ class RvAdapter(private val itemList: List<Scramble>) : RecyclerView.Adapter<RvA
 
     override fun getItemCount(): Int {
         return itemList.size
+    }
+
+    fun setItem(itemList: List<Scramble>) {
+        this.itemList = itemList
+        notifyDataSetChanged()
     }
 }

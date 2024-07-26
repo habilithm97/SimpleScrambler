@@ -9,8 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 // Repository 클래스를 통해 DB와 상호작용하고, UI에 필요한 데이터를 제공하는 ViewModel 클래스
-class MyVM(application: Application) : AndroidViewModel(application) {
-    private val myRepo: MyRepo
+class MyViewModel(application: Application) : AndroidViewModel(application) {
+    private val myRepo: MyRepository
     val getAll: LiveData<List<Scramble>>
 
     init {
@@ -20,7 +20,7 @@ class MyVM(application: Application) : AndroidViewModel(application) {
         -DB가 애플리케이션의 전역 context에서 안전하게 접근함
          */
         val roomDao = RoomDB.getInstance(application).roomDao()
-        myRepo = MyRepo(roomDao)
+        myRepo = MyRepository(roomDao)
         getAll = myRepo.getAll.asLiveData()
     }
 

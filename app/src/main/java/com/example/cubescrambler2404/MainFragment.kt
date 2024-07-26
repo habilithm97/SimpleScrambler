@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.viewModels
 import com.example.cubescrambler2404.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
@@ -15,6 +16,8 @@ class MainFragment : Fragment() {
     private val faces = listOf("U", "R", "F", "B", "L", "B")
     private val rotation = listOf("", "'", "2")
     private var moves = 20
+    private val viewModel: MyViewModel by viewModels()
+    private var scramble = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +33,14 @@ class MainFragment : Fragment() {
             tvScramble.setOnTouchListener { _, motionEvent ->
                 when(motionEvent.action) {
                     MotionEvent.ACTION_UP -> {
-                        val scramble = createScramble()
-                        tvScramble.text = scramble
+                        if(scramble.isNotBlank()) {
+                            saveScramble()
+                            scramble = createScramble()
+                            tvScramble.text = scramble
+                        } else {
+                            scramble = createScramble()
+                            tvScramble.text = scramble
+                        }
                     }
                 }
                 true
@@ -84,6 +93,13 @@ class MainFragment : Fragment() {
             "F", "B" -> "FB"
             else -> ""
         }
+    }
+
+    private fun saveScramble() {
+        val scrambled = scramble
+        val date = "2407251513"
+        val scrambleData = Scramble(scrambled, date)
+        viewModel.addScramble(scrambleData)
     }
 
     private fun showPopupMenu(view: View) {
