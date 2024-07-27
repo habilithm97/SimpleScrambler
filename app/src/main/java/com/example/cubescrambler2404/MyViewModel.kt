@@ -33,4 +33,10 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
             myRepo.addScramble(scramble)
         }
     }
+
+    fun deleteScramble(scramble: Scramble) {
+        viewModelScope.launch(Dispatchers.IO) {
+            myRepo.deleteScramble(scramble)
+        }
+    }
 }

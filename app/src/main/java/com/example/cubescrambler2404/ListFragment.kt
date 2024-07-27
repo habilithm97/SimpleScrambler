@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cubescrambler2404.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -38,5 +40,22 @@ class ListFragment : Fragment() {
         viewModel.getAll.observe(viewLifecycleOwner, Observer { itemList -> // LiveData를 관찰할 때는 viewLifecycleOwner 사용
             rvAdapter.setItem(itemList)
         })
+
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val scramble = rvAdapter.getPosition(position)
+                viewModel.deleteScramble(scramble)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.rv)
     }
 }

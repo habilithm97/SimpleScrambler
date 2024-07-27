@@ -8,5 +8,9 @@ class MyRepository(private val roomDao: RoomDao) {
         roomDao.addScramble(scramble)
     }
 
+    suspend fun deleteScramble(scramble: Scramble) {
+        roomDao.deleteScramble(scramble)
+    }
+
     val getAll: Flow<List<Scramble>> = roomDao.getAll()
 }

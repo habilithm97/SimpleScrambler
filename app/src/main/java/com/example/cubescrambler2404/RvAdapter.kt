@@ -34,4 +34,8 @@ class RvAdapter : RecyclerView.Adapter<RvAdapter.MyViewHolder>() {
         this.itemList = itemList
         notifyDataSetChanged()
     }
+
+    fun getPosition(position: Int): Scramble {
+        return itemList[position]
+    }
 }
