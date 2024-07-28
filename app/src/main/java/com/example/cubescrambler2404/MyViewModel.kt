@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 // Repository 클래스를 통해 DB와 상호작용하고, UI에 필요한 데이터를 제공하는 ViewModel 클래스
 class MyViewModel(application: Application) : AndroidViewModel(application) {
-    private val myRepo: MyRepository
+    private val myRepository: MyRepository
     val getAll: LiveData<List<Scramble>>
 
     init {
@@ -20,8 +20,8 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         -DB가 애플리케이션의 전역 context에서 안전하게 접근함
          */
         val roomDao = RoomDB.getInstance(application).roomDao()
-        myRepo = MyRepository(roomDao)
-        getAll = myRepo.getAll.asLiveData()
+        myRepository = MyRepository(roomDao)
+        getAll = myRepository.getAll.asLiveData()
     }
 
     fun addScramble(scramble: Scramble) {
@@ -30,13 +30,17 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         -> ViewModel이 파괴되면 코루틴이 자동으로 취소되어 메모리 릭을 방지함
          */
         viewModelScope.launch(Dispatchers.IO) {
-            myRepo.addScramble(scramble)
+            myRepository.addScramble(scramble)
         }
     }
 
     fun deleteScramble(scramble: Scramble) {
         viewModelScope.launch(Dispatchers.IO) {
-            myRepo.deleteScramble(scramble)
+            myRepository.deleteScramble(scramble)
         }
+    }
+
+    fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {
+        myRepository.deleteAll()
     }
 }

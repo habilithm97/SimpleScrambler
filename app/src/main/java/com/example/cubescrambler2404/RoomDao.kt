@@ -15,6 +15,10 @@ interface RoomDao {
     @Delete
     suspend fun deleteScramble(scramble: Scramble)
 
+    @Query("delete from scramble_tb")
+    suspend fun deleteAll()
+
+
     @Query("select * from scramble_tb order by id")
     fun getAll(): Flow<List<Scramble>> // 비동기 데이터 스트림을 처리하기 위한 Flow
 }

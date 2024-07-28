@@ -6,25 +6,40 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
-    <TextView
-        android:id="@+id/tv"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/last_scrambles"
-        android:textColor="@color/white"
-        android:textSize="30sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/last_scrambles"
+            android:textColor="@color/white"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/btnDeleteAll"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/delete"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
