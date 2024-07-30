@@ -42,7 +42,7 @@ class ListFragment : Fragment() {
             }
         }
         viewModel.getAll.observe(viewLifecycleOwner, Observer { itemList -> // LiveData를 관찰할 때는 viewLifecycleOwner 사용
-            rvAdapter.setItem(itemList)
+            rvAdapter.submitList(itemList)
         })
 
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -55,7 +55,7 @@ class ListFragment : Fragment() {
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                val scramble = rvAdapter.getPosition(position)
+                val scramble = rvAdapter.currentList[position]
                 viewModel.deleteScramble(scramble)
             }
         }
