@@ -41,8 +41,10 @@ class ListFragment : Fragment() {
                 showDialog()
             }
         }
-        viewModel.getAll.observe(viewLifecycleOwner, Observer { itemList -> // LiveData를 관찰할 때는 viewLifecycleOwner 사용
-            rvAdapter.submitList(itemList)
+        viewModel.getAll.observe(viewLifecycleOwner, Observer { // LiveData를 관찰할 때는 viewLifecycleOwner 사용
+            rvAdapter.submitList(it) {
+                binding.rv.scrollToPosition(it.size - 1) // 마지막 아이템 위치로 스크롤
+            }
         })
 
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
