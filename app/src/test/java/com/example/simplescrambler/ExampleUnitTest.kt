@@ -1,4 +1,4 @@
-package com.example.cubescrambler2404
+package com.example.simplescrambler
 
 import org.junit.Test
 

@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">CubeScrambler2404</string>
+    <string name="app_name">SimpleScrambler</string>
+
     <string name="three">3x3x3</string>
     <string name="scramble">Scramble</string>
     <string name="two">2x2x2</string>
     <string name="last_scrambles">Last Scrambles</string>
     <string name="date">2407231221</string>
+    <string name="delete_all">Delete All</string>
+    <string name="delete_all_msg">Are you sure you want to delete all items?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

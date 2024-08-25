@@ -1,31 +1,37 @@
-package com.example.cubescrambler2404
+package com.example.simplescrambler.view
 
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.cubescrambler2404.databinding.FragmentMainBinding
+import com.example.simplescrambler.R
+import com.example.simplescrambler.databinding.FragmentMainBinding
+import com.example.simplescrambler.room.Scramble
+import com.example.simplescrambler.viewmodel.ScrambleViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MainFragment : Fragment() {
-    private lateinit var binding: FragmentMainBinding
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+
+    private var scramble = ""
+    private var moves = 20
     private val faces = listOf("U", "R", "F", "B", "L", "B")
     private val rotation = listOf("", "'", "2")
-    private var moves = 20
-    private val viewModel: MyViewModel by viewModels()
-    private var scramble = ""
+    private val scrambleViewModel: ScrambleViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         init()
         return binding.root
     }
@@ -87,6 +93,7 @@ class MainFragment : Fragment() {
         }
         return scramble.toString()
     }
+
     // 각 면에 대한 축을 반환
     private fun getAxis(face: String): String {
         return when (face) {
@@ -101,11 +108,15 @@ class MainFragment : Fragment() {
         val scrambled = scramble
         val date = getCurrentDateTime()
         val scrambleData = Scramble(scrambled, date)
-        viewModel.addScramble(scrambleData)
+        scrambleViewModel.addScramble(scrambleData)
     }
 
     private fun getCurrentDateTime(): String {
-        val current = LocalDateTime.now()
+        val current = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDateTime.now()
+        } else {
+            throw UnsupportedOperationException("VERSION.SDK_INT < O is not supported.")
+        }
         val formatter = DateTimeFormatter.ofPattern("yyMMddHHmm")
         return current.format(formatter)
     }
@@ -136,5 +147,10 @@ class MainFragment : Fragment() {
             }
         }
         return true
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // 메모리 릭 방지
     }
 }

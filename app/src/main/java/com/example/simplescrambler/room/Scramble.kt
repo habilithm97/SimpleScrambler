@@ -1,10 +1,9 @@
-package com.example.cubescrambler2404
+package com.example.simplescrambler.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "scramble_tb")
+@Entity(tableName = "scramble")
 data class Scramble(val scramble: String, val date: String) {
-    @PrimaryKey(autoGenerate = true)
-    var id = 0
+    @PrimaryKey(autoGenerate = true) var id = 0
 }

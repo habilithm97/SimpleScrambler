@@ -1,4 +1,4 @@
-package com.example.cubescrambler2404
+package com.example.simplescrambler
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

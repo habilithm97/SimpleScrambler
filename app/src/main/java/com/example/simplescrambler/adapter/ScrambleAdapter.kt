@@ -1,15 +1,16 @@
-package com.example.cubescrambler2404
+package com.example.simplescrambler.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cubescrambler2404.databinding.ItemRvBinding
+import com.example.simplescrambler.databinding.ItemScrambleBinding
+import com.example.simplescrambler.room.Scramble
 
-class RvAdapter : ListAdapter<Scramble, RvAdapter.MyViewHolder>(diffCallback) {
+class ScrambleAdapter : ListAdapter<Scramble, ScrambleAdapter.ScrambleViewHolder>(diffCallback) {
 
-    inner class MyViewHolder(private val binding: ItemRvBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ScrambleViewHolder(private val binding: ItemScrambleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(scramble: Scramble) {
             binding.apply {
                 tvScramble.text = scramble.scramble
@@ -18,22 +19,22 @@ class RvAdapter : ListAdapter<Scramble, RvAdapter.MyViewHolder>(diffCallback) {
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ItemRvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrambleViewHolder {
+        val binding = ItemScrambleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ScrambleViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ScrambleViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<Scramble>() {
             override fun areItemsTheSame(oldItem: Scramble, newItem: Scramble): Boolean {
-                return oldItem.id == newItem.id // 두 아이템이 같은지
+                return oldItem.id == newItem.id
             }
             override fun areContentsTheSame(oldItem: Scramble, newItem: Scramble): Boolean {
-                return oldItem == newItem // 두 아이템의 데이터가 같은지
+                return oldItem == newItem
             }
         }
     }

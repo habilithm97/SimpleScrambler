@@ -1,8 +1,9 @@
-package com.example.cubescrambler2404
+package com.example.simplescrambler.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.cubescrambler2404.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.example.simplescrambler.adapter.ViewPagerAdapter
+import com.example.simplescrambler.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -15,6 +16,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        binding.viewPager.adapter = VpAdapter(this@MainActivity)
+        binding.viewPager.adapter = ViewPagerAdapter(this@MainActivity)
     }
 }
