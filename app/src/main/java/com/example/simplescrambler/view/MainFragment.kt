@@ -135,14 +135,16 @@ class MainFragment : Fragment() {
                 moves = 20
                 binding.apply {
                     tvCube.text = getString(R.string.three)
-                    tvScramble.text = createScramble()
+                    scramble = createScramble()
+                    tvScramble.text = scramble
                 }
             }
             R.id.item2 -> {
                 moves = 9
                 binding.apply {
                     tvCube.text = getString(R.string.two)
-                    tvScramble.text = createScramble()
+                    scramble = createScramble()
+                    tvScramble.text = scramble
                 }
             }
         }
