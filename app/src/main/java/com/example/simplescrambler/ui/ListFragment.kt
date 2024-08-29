@@ -1,4 +1,4 @@
-package com.example.simplescrambler.view
+package com.example.simplescrambler.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
